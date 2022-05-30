@@ -37,7 +37,7 @@ function accrx_post_page($form, $source_page, $current_page)
 {
 	if ($source_page == 1) {
 		$npi_number = rgpost('input_1');
-		$url = 'https://npiregistry.cms.hhs.gov/api/?version=2.0&number=' . $npi_number;
+		$url = 'https://abcregistry.com/api/?version=2.0&number=' . $npi_number;
 		$request = new WP_Http;
 		$results = $request->request($url);
 		$defaultValues = accrx_mapping_fields($results['body']);
