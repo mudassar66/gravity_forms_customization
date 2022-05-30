@@ -1,18 +1,18 @@
 <?php
 
 /**
- * AccordRx Theme functions and definitions
+ * ABC Theme functions and definitions
  *
- * @link https://developer.wordpress.org/themes/basics/theme-functions/
+ *  
  *
- * @package AccordRx
+ * @package ABC
  * @since 1.0.0
  */
 
 /**
  * Define Constants
  */
-define('CHILD_THEME_ACCORDRX_VERSION', '1.0.0');
+define('CHILD_THEME_ABC_VERSION', '1.0.0');
 
 /**
  * Enqueue styles
@@ -59,27 +59,26 @@ function accrx_mapping_fields($reqBody)
 	}
 	$resFields = $response->results[0];
 	$fieldsValues = [
-		'input_11_2_3' => $resFields->basic->authorized_official_first_name,
-		'input_11_2_6' => $resFields->basic->authorized_official_last_name,
-		'input_11_16' => $resFields->basic->authorized_official_telephone_number,
-		'input_11_17' => $resFields->basic->name,
-		'input_11_18' => $resFields->other_names[0]->organization_name,
-		'input_11_24' => $resFields->taxonomies[0]->license,
+		'input_101_2_3' => $resFields->basic->authorized_official_first_name,
+		'input_101_2_6' => $resFields->basic->authorized_official_last_name,
+		'input_101_16' => $resFields->basic->authorized_official_telephone_number,
+		'input_101_17' => $resFields->basic->name,
+		'input_101_18' => $resFields->other_names[0]->organization_name,
+		'input_101_24' => $resFields->taxonomies[0]->license,
 		'last_update' => $resFields->basic->last_update,
-		'input_11_25_1' => date('m', strtotime($resFields->basic->last_update)),
-		'input_11_25_2' => date('d', strtotime($resFields->basic->last_update)),
-		'input_11_25_3' => date('Y', strtotime($resFields->basic->last_update)),
-		//'input_11_26' => $resFields->taxonomies[0]->state,
+		'input_101_25_1' => date('m', strtotime($resFields->basic->last_update)),
+		'input_101_25_2' => date('d', strtotime($resFields->basic->last_update)),
+		'input_101_25_3' => date('Y', strtotime($resFields->basic->last_update)),
 	];
 	$address = [];
 	foreach ($resFields->addresses as $adrs) {
 		if ($adrs->address_purpose == 'LOCATION') {
 			$address = [
-				'input_11_19_1' => $adrs->address_1,
-				'input_11_19_2' => $adrs->address_2,
-				'input_11_19_3' => $adrs->city,
-				//'input_11_19_4' => $adrs->state,
-				'input_11_19_5' => $adrs->postal_code,
+				'input_101_19_1' => $adrs->address_1,
+				'input_101_19_2' => $adrs->address_2,
+				'input_101_19_3' => $adrs->city,
+				 
+				'input_101_19_5' => $adrs->postal_code,
 			];
 		}
 	}
@@ -154,10 +153,9 @@ function add_new_feature_image($post_id, $feed, $entry, $form)
 	//$meta_fields = get_generic_map_fields($feed, 'postMetaFields', $form, $entry);
 	foreach ($meta_fields as $meta_key => $meta_value) {
 
-		if ($meta_key == "_sku") {
+		if ($meta_key == "_sku__") {
 			$meta_value = get_leading_zero_id($meta_value);
 			$sku_id = $meta_value;
-			#GFCommon::send_email('mudassar66@gmail.com', 'mudassar66@gmail.com', '', '', 'New Post', "meta_key=" . $meta_key . " meta valaue" . $meta_value);
 			update_post_meta($post_id, $meta_key, $meta_value);
 		}
 	}
